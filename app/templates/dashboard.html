@@ -45,7 +45,7 @@
         <div class="card bg-info text-white h-100">
             <div class="card-body">
                 <h5 class="card-title">Available Quizzes</h5>
-                <h2 class="display-6">{{ quizzes|length }}</h2> <!-- show available quizzes, or if data can't be found just show 0 -->
+                <h2 class="display-6">{{ quizzes|length - (current_user.quizzes_completed or 0) }}</h2> <!-- show available quizzes, or if data can't be found just show 0 -->
             </div>
         </div>
     </div>
