@@ -7,9 +7,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy required files for security (also configure .dockerignore for extra security)
 
-# COPY . . # ONLY USE THIS FOR DEV SETUP FOR INITIAL DATABASE DATA
+# ONLY USE COPY . . FOR DEBUGGING IF NEEDED
+# COPY . . 
 COPY app/ ./app/
 COPY wsgi.py .
+# COPY scripts/init-db-script.py ./scripts
 
 EXPOSE 5000
 
