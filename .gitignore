@@ -4,3 +4,4 @@
 .env
 .DS_Store
 app/.DS_Store
+app/templates/.DS_Store
