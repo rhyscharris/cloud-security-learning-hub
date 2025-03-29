@@ -1,0 +1,6 @@
+/app/__pycache__
+.dockerignore
+.DS_Store
+.env
+.DS_Store
+app/.DS_Store
