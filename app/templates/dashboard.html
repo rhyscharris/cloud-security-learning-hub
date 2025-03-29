@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Cloud Security Learning Hub{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1 class="display-5">Welcome, {{ current_user.username }}</h1>
+        <p class="lead">Track your progress and continue learning about cloud security.</p>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="display-6">{{ current_user.total_score }}</h3>
+                <p class="mb-0">Total Points</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4 g-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quizzes Completed</h5>
+                <h2 class="display-6">{{ current_user.quizzes_completed }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Average Score</h5>
+                <h2 class="display-6">
+                    {% if current_user.quizzes_completed > 0 %}
+                        {{ (current_user.total_score / current_user.quizzes_completed) | round(1) }}%
+                    {% else %}
+                        0%
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-info text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Available Quizzes</h5>
+                <h2 class="display-6">{{ quizzes|length }}</h2> <!-- show available quizzes, or if data can't be found just show 0 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5 mb-4">Quizzes</h2>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for quiz in quizzes %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ quiz.title }}</h5>
+                <p class="card-text">{{ quiz.description }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-secondary">{{ quiz.questions|length }} questions</span>
+                    <span class="text-muted">Difficulty: {{ quiz.difficulty }}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                {% if quiz._id in completed_quizzes %}
+                    <a href="{{ url_for('quiz.take_quiz', quiz_id=quiz._id) }}" class="btn btn-success">Completed - See results</a>
+                {% else %}
+                    <a href="{{ url_for('quiz.take_quiz', quiz_id=quiz._id) }}" class="btn btn-primary">Take Quiz</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
