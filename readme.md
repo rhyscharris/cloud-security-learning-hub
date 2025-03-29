@@ -17,6 +17,23 @@ A containerized Flask application that provides an interactive testing/learning 
 - **Frontend**: HTML, CSS, JavaScript, Bootstrap
 - **Containerization**: Docker, Kubernetes
 
+## Project Structure
+
+- `app/`: Main application code
+  - `__init__.py`: Flask application initialization
+  - `config.py`: Configuration settings
+  - `models.py`: Data models for MongoDB
+  - `routes.py`: Main application routes
+  - `auth.py`: Authentication functionality
+  - `quiz.py`: Quiz functionality
+  - `static/`: Static assets (CSS, JS, images)
+  - `templates/`: HTML templates (e.g. main)
+- `kubernetes/`: Kubernetes configuration for EKS
+- `Dockerfile`: Container definition
+- `docker-compose.yml`: Local development setup
+- `requirements.txt`: Project dependencies
+- `scripts/`: Automation scripts for database, backups, etc
+
 ## License
 
 MIT
