@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prod-cslh
-  namespace: prod-cslh
+  namespace: prod-cslh-namespace
   labels:
     app: prod-cslh
 spec:
