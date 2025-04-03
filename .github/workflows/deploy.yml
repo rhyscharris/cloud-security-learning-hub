@@ -44,7 +44,7 @@ jobs:
     - name: Update Kubernetes manifests
       run: |
         # Replace the image tag in deployment.yaml with the new image
-        sed -i "s|050451363468.dkr.ecr.us-east-2.amazonaws.com/prod-cslh:latest|${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}|" kubernetes-test-deployment.yaml
+        sed -i "s|050451363468.dkr.ecr.us-east-2.amazonaws.com/prod-cslh:latest|${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}|" kubernetes/kubernetes-test-deployment.yaml
         
     - name: Install kubectl
       uses: azure/setup-kubectl@v3
