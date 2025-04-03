@@ -1,40 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubernetes-test
-  namespace: kubernetes-test
+  name: prod-cslh
+  namespace: prod-cslh
   labels:
-    app: kubernetes-test
+    app: prod-cslh
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: kubernetes-test
+      app: prod-cslh
   template:
     metadata:
       labels:
-        app: kubernetes-test
+        app: prod-cslh
     spec:
       containers:
-      - name: kubernetes-test
-        image: 034362071134.dkr.ecr.eu-west-2.amazonaws.com/playground-2:latest
+      - name: prod-cslh
+        image: 050451363468.dkr.ecr.us-east-2.amazonaws.com/prod-cslh:latest  # This will be dynamically replaced by GitHub Actions
         ports:
         - containerPort: 5000 
         env:
           - name: MONGO_USERNAME
             valueFrom:
               secretKeyRef:
-                name: kubernetes-test-app-secret
+                name: prod-cslh-app-secret
                 key: MONGO_USERNAME
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: kubernetes-test-app-secret
+                name: prod-cslh-app-secret
                 key: MONGO_PASSWORD
           - name: SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: kubernetes-test-app-secret
+                name: prod-cslh-app-secret
                 key: SECRET_KEY
           - name: MONGODB_URI
             value: "mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@10.0.13.144:27017/security_hub?authSource=admin"
+      imagePullSecrets:
+      - name: regcred  # Optional: If you need private registry credentials

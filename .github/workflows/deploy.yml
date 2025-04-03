@@ -1,0 +1,72 @@
+name: Deploy to EKS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-2
+  ECR_REPOSITORY: prod-cslh
+  K8S_NAMESPACE: prod-cslh-namespace
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }},${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
+    - name: Update Kubernetes manifests
+      run: |
+        # Replace the image tag in deployment.yaml with the new image
+        sed -i "s|050451363468.dkr.ecr.us-east-2.amazonaws.com/prod-cslh:latest|${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}|" kubernetes-test-deployment.yaml
+        
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+        
+    - name: Update kubeconfig
+      run: aws eks update-kubeconfig --name prod-cloud-security-learning-hub-cluster --region ${{ env.AWS_REGION }}
+      
+    - name: Create K8s Secret
+      run: |
+        kubectl create namespace ${{ env.K8S_NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
+        
+        # Create Kubernetes secret from GitHub secrets
+        kubectl create secret generic prod-cslh-app-secret \
+          --namespace=${{ env.K8S_NAMESPACE }} \
+          --from-literal=MONGO_USERNAME='${{ secrets.MONGO_USERNAME }}' \
+          --from-literal=MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' \
+          --from-literal=SECRET_KEY='${{ secrets.SECRET_KEY }}' \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f kubernetes/kubernetes-test-deployment.yaml
+        kubectl apply -f kubernetes/kubernetes-test-service.yaml
