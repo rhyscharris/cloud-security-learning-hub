@@ -15,6 +15,7 @@ spec:
       labels:
         app: prod-cslh
     spec:
+      serviceAccountName: prod-cslh-admin  # 🚨 This gives the pod cluster-admin access
       containers:
       - name: prod-cslh
         image: 050451363468.dkr.ecr.us-east-2.amazonaws.com/prod-cslh:latest  # This will be dynamically replaced by GitHub Actions
