@@ -14,7 +14,7 @@ body {
 
 .bg-primary {
     --bs-bg-opacity: 1;
-    background-color: red !important;
+    background-color: #0254ec !important;
 }
 
 .container {
@@ -55,8 +55,8 @@ body {
 }
 
 .btn-primary {
-    background-color: red;
-    border-color: red;
+    background-color: #0254ec;
+    border-color: #0254ec;
 }
 
 .btn-primary:hover {
@@ -68,12 +68,12 @@ body {
     max-width: 100%;
 }
 
-.hero-image svg {
+.hero-image {
     max-width: 100%;
 }
 
 /* Quiz styles */
 .form-check-input:checked {
-    background-color: red;
-    border-color: red;
+    background-color: #0254ec;
+    border-color: #0254ec;
 }
