@@ -68,6 +68,10 @@ body {
     max-width: 100%;
 }
 
+.hero-image svg {
+    max-width: 100%;
+}
+
 /* Quiz styles */
 .form-check-input:checked {
     background-color: #0254ec;
