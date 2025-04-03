@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubernetes-test-service
+  name: prod-cslh-lb-service
   namespace: prod-cslh-namespace
 spec:
   type: LoadBalancer
   selector:
-    app: kubernetes-test
+    app: prod-cslh
   ports:
     - protocol: TCP
       port: 80
