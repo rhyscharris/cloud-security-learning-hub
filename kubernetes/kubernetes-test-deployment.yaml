@@ -38,6 +38,9 @@ spec:
                 name: prod-cslh-app-secret
                 key: SECRET_KEY
           - name: MONGODB_URI
-            value: "mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@10.0.1.174:27017/security_hub?authSource=admin"
+            valueFrom:
+              secretKeyRef:
+                name: prod-cslh-app-secret
+                key: MONGODB_URI
       imagePullSecrets:
       - name: regcred  # Optional: If you need private registry credentials
