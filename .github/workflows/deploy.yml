@@ -67,7 +67,7 @@ jobs:
           --from-literal=MONGO_USERNAME='${{ secrets.MONGO_USERNAME }}' \
           --from-literal=MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' \
           --from-literal=SECRET_KEY='${{ secrets.SECRET_KEY }}' \
-          --from-literal=MONGODB_URI='${{ secrets.MONGODB_URI }}' \
+          --from-literal=MONGODB_URI=${{ secrets.MONGODB_URI }} \
           --dry-run=client -o yaml | kubectl apply -f - --validate=false
 
     - name: Deploy to EKS
