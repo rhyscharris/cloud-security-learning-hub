@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="AWS Architecture Diagram" id="4Y6L29sJ2z2XSaBmyX8P">
+    <mxGraphModel dx="1234" dy="902" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- VPC -->
+        <mxCell id="2" value="VPC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#42A5F5;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="700" height="500" as="geometry"/>
+        </mxCell>
+
+        <!-- Availability Zone -->
+        <mxCell id="3" value="Availability Zone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;" vertex="1" parent="2">
+          <mxGeometry x="20" y="20" width="660" height="460" as="geometry"/>
+        </mxCell>
+
+        <!-- Public Subnet -->
+        <mxCell id="4" value="Public Subnet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#388E3C;" vertex="1" parent="3">
+          <mxGeometry x="20" y="20" width="300" height="400" as="geometry"/>
+        </mxCell>
+
+        <!-- Private Subnet -->
+        <mxCell id="5" value="Private Subnet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#0D47A1;" vertex="1" parent="3">
+          <mxGeometry x="340" y="20" width="300" height="400" as="geometry"/>
+        </mxCell>
+
+        <!-- MongoDB -->
+        <mxCell id="6" value="MongoDB" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#BF360C;" vertex="1" parent="4">
+          <mxGeometry x="100" y="100" width="80" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Jenkins -->
+        <mxCell id="7" value="Jenkins" style="shape=mxgraph.cisco.misc.users;whiteSpace=wrap;html=1;" vertex="1" parent="4">
+          <mxGeometry x="50" y="230" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Django -->
+        <mxCell id="8" value="Django" style="ellipse;whiteSpace=wrap;html=1;fillColor=#AED581;strokeColor=#33691E;" vertex="1" parent="4">
+          <mxGeometry x="150" y="230" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- WordPress -->
+        <mxCell id="9" value="WordPress" style="ellipse;whiteSpace=wrap;html=1;fillColor=#81D4FA;strokeColor=#01579B;" vertex="1" parent="4">
+          <mxGeometry x="100" y="230" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EKS Node -->
+        <mxCell id="10" value="Node.js Container" style="shape=hexagon;whiteSpace=wrap;html=1;fillColor=#D1C4E9;strokeColor=#512DA8;" vertex="1" parent="5">
+          <mxGeometry x="100" y="100" width="100" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- EKS -->
+        <mxCell id="11" value="Amazon EKS" style="shape=mxgraph.aws3.kubernetes;whiteSpace=wrap;html=1;" vertex="1" parent="5">
+          <mxGeometry x="100" y="200" width="80" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- S3 -->
+        <mxCell id="12" value="S3" style="shape=mxgraph.aws3.s3;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="120" width="60" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="13" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="6" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="14" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="10" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="10" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
