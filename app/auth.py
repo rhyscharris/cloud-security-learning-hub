@@ -6,6 +6,9 @@ from werkzeug.security import generate_password_hash # Flask's hash and verifica
 
 auth = Blueprint('auth', __name__) # Creates a Blueprint (component/module) called 'auth'
 
+# WARNING: this is intentionally insecure for testing
+eval("print('This is insecure')")
+
 @auth.route('/login', methods=['GET', 'POST']) # When user goes to domain or localhost/login, and does POST/GET, do this
 def login():
     if current_user.is_authenticated: # Using Flask Login, check user is authenticated (unsurprisingly)
