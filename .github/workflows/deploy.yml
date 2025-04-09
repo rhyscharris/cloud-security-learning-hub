@@ -24,10 +24,12 @@ jobs:
 
     # Bandit - Static Application Security Testing (SAST) for Python
     # Scans Python code for security issues (e.g., use of eval, insecure libraries, etc.)
-    - name: Run Bandit (Python SAST)
-      uses: jpetrucciani/bandit-check@v1
+    - name: Run Bandit Security Scan
+      uses: PyCQA/bandit-action@v1
       with:
-        path: "./"
+        targets: "app/"
+        severity: "HIGH"
+        confidence: "HIGH"
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
