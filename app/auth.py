@@ -6,10 +6,10 @@ from app import mongo # From __init__.py, import mongo
 
 auth = Blueprint('auth', __name__) # Creates a Blueprint (component/module) called 'auth'
 
-# WARNING: Demo 1 - this is intentionally for testing
+# WARNING: Demo A - this is intentionally for testing
 password = "secret123" # this is only here to demo Ruff blocking this.
 
-# WARNING: Demo 2 - this is intentionally for testing
+# WARNING: Demo B - this is intentionally for testing
 eval("print('This is insecure')")
 
 @auth.route('/login', methods=['GET', 'POST']) # When user goes to domain or localhost/login, and does POST/GET, do this
