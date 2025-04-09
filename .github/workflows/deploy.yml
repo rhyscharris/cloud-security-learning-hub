@@ -33,14 +33,14 @@ jobs:
     
     - name: Run Bandit and convert output to SARIF
       run: |
-        pip install bandit bandit-sarif-formatter
+        python -m pip install bandit bandit-sarif-formatter
         bandit -r app/ \
           --format json \
           --output bandit-output.json \
           --severity-level low \
           --confidence-level low
     
-        bandit-sarif-formatter bandit-output.json > results.sarif
+        python -m bandit_sarif_formatter bandit-output.json > results.sarif
 
 
     - name: Upload SARIF to GitHub
