@@ -7,10 +7,10 @@ from app import mongo # From __init__.py, import mongo
 auth = Blueprint('auth', __name__) # Creates a Blueprint (component/module) called 'auth'
 
 # WARNING: Demo 1 - this is intentionally for testing
-#password = "secret123" # this is only here to demo Ruff blocking this.
+password = "secret123" # this is only here to demo Ruff blocking this.
 
-#def connect():
-#    print("this should not be in prod")  # debug in print, Ruff should also block this
+def connect():
+    print("this should not be in prod")  # debug in print, Ruff should also block this
 
 @auth.route('/login', methods=['GET', 'POST']) # When user goes to domain or localhost/login, and does POST/GET, do this
 def login():
