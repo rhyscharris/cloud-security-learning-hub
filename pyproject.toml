@@ -1,16 +1,8 @@
 [tool.ruff]
+
 # Include only the app/ directory for speed
 include = ["app"]
 
-# Set rules to enforce (default is all enabled, but we customize for demo)
-select = ["F", "E", "W", "T20", "T10", "PL", "B"]
-
-# Optionally ignore rules to prevent noise
-ignore = [
-  "E501",  # Line too long
-  "F401",  # Unused imports
-  "F841",  # Assigned but unused
-]
-
-# You can optionally make it faster by excluding generated/irrelevant dirs
-exclude = ["__pycache__"]
+select = ["B", "F", "T", "ERA"]
+extend-ignore = ["E501"]  # ignore long lines
+extend-exclude = ["__init__.py"]

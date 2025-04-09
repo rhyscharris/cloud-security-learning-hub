@@ -34,7 +34,6 @@ jobs:
     - name: Run Ruff security check
       run: |
         pip install ruff==0.11.4
-        cd cloud-security-learning-hub
         ruff check .
 
   # -------------------------------------------------
