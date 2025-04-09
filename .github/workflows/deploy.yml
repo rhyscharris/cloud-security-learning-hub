@@ -28,8 +28,8 @@ jobs:
       uses: PyCQA/bandit-action@v1
       with:
         targets: "app/"
-        severity: "HIGH"
-        confidence: "HIGH"
+        severity: "high"
+        confidence: "high"
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
