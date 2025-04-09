@@ -11,8 +11,31 @@ env:
   K8S_NAMESPACE: prod-cslh-namespace
 
 jobs:
-  build-and-deploy:
+  # -------------------------------
+  # Step 1: Run Security Checks
+  # -------------------------------
+  security-checks:
     runs-on: ubuntu-latest
+    name: Run Security Checks
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Bandit - Static Application Security Testing (SAST) for Python
+    # Scans Python code for security issues (e.g., use of eval, insecure libraries, etc.)
+    - name: Run Bandit (Python SAST)
+      uses: jpetrucciani/bandit-check@v1
+      with:
+        path: "./"
+
+  # -------------------------------------------------
+  # Step 2: Build, Scan, and Deploy to EKS
+  # -------------------------------------------------
+  build-and-deploy:
+    name: Build, Scan, and Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: security-checks  # Will only run if security checks pass
 
     steps:
     - name: Checkout code
