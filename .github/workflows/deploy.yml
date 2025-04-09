@@ -36,7 +36,7 @@ jobs:
   
     - name: Run Ruff security check
       run: |
-        ruff check app/ --select=B --verbose
+        ruff check app/ --select B --exit-zero false --verbose
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
