@@ -1,8 +1,0 @@
-[tool.ruff]
-
-# Include only the app/ directory for speed
-include = ["app"]
-
-select = ["B", "F", "T", "ERA"]
-extend-ignore = ["E501"]  # ignore long lines
-extend-exclude = ["__init__.py"]

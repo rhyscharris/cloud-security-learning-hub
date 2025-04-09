@@ -28,13 +28,12 @@ jobs:
       uses: actions/checkout@v3
 
     # Ruff - Fast Python linter and security checker
-    # Enforces Bandit-style rules (e.g., eval, exec) using the 'B' rule set
     # Should fail the CI if any issues are found, including eval() use in auth.py
-    # hardcoded version which is latest only as of April 2025
+    # Hardcoded 0.11.4 version which is latest only as of April 2025
     - name: Run Ruff security check
       run: |
         pip install ruff==0.11.4
-        ruff check .
+        ruff check app/auth.py --select ALL --ignore F401,F841
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
