@@ -30,19 +30,10 @@ jobs:
     # Bandit - Static Application Security Testing (SAST) for Python
     # Runs manually so it fails on detection
     # Scans Python code for security issues (e.g., use of eval, insecure libraries, etc.)
-    - name: Run Bandit and fail on issues
-      run: |
-        pip install bandit
-        bandit -r app/ \
-          --format sarif \
-          --output results.sarif \
-          --severity-level low \
-          --confidence-level low
-
     - name: Install Bandit and SARIF formatter
       run: |
         pip install bandit bandit-sarif-formatter
-  
+    
     - name: Run Bandit and convert output to SARIF
       run: |
         bandit -r app/ \
@@ -52,6 +43,7 @@ jobs:
           --confidence-level low
     
         bandit-sarif-formatter bandit-output.json > results.sarif
+
 
     - name: Upload SARIF to GitHub
       uses: github/codeql-action/upload-sarif@v3
