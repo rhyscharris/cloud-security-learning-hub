@@ -28,13 +28,21 @@ jobs:
       uses: actions/checkout@v3
 
     # Bandit - Static Application Security Testing (SAST) for Python
+    # Runs manually so it fails on detection
     # Scans Python code for security issues (e.g., use of eval, insecure libraries, etc.)
-    - name: Run Bandit Security Scan
-      uses: PyCQA/bandit-action@v1
+    - name: Run Bandit and fail on issues
+      run: |
+        pip install bandit
+        bandit -r app/ \
+          --format sarif \
+          --output results.sarif \
+          --severity-level low \
+          --confidence-level low
+
+    - name: Upload SARIF to GitHub
+      uses: github/codeql-action/upload-sarif@v3
       with:
-        targets: "app/"
-        severity: "low" # Minimum severity to report
-        confidence: "low" # Minimum confidence to report
+        sarif_file: results.sarif
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
