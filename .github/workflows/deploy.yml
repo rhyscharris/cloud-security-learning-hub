@@ -36,7 +36,7 @@ jobs:
 
     - name: Run Ruff and generate SARIF
       run: |
-        ruff check app/ --format=sarif > results.sarif
+        ruff check app/ --output-format=sarif > results.sarif
 
     - name: Upload SARIF to GitHub
       uses: github/codeql-action/upload-sarif@v3
