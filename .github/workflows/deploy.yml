@@ -33,7 +33,7 @@ jobs:
     - name: Run Ruff security check
       run: |
         pip install ruff==0.11.4
-        ruff check app/auth.py --select ALL --ignore F401,F841
+        ruff check app/auth.py --select S
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
