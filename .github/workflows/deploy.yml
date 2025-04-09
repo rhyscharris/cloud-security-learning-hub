@@ -39,6 +39,20 @@ jobs:
           --severity-level low \
           --confidence-level low
 
+    - name: Install Bandit and SARIF formatter
+      run: |
+        pip install bandit bandit-sarif-formatter
+  
+    - name: Run Bandit and convert output to SARIF
+      run: |
+        bandit -r app/ \
+          --format json \
+          --output bandit-output.json \
+          --severity-level low \
+          --confidence-level low
+    
+        bandit-sarif-formatter bandit-output.json > results.sarif
+
     - name: Upload SARIF to GitHub
       uses: github/codeql-action/upload-sarif@v3
       with:
