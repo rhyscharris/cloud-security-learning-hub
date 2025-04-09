@@ -27,24 +27,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Bandit - Static Application Security Testing (SAST) for Python
-    # Runs manually so it fails on detection
-    # Scans Python code for security issues (e.g., use of eval, insecure libraries, etc.)
-    
-    - name: Run Bandit and convert output to SARIF
-      shell: bash
+    # Ruff - Fast Python linter and security checker
+    # Enforces Bandit-style rules (e.g., eval, exec) using the 'B' rule set
+    # Should fail the CI if any issues are found, including eval() use in auth.py
+
+    - name: Install Ruff
+      run: pip install ruff
+
+    - name: Run Ruff and generate SARIF
       run: |
-        python -m pip install --user bandit bandit-sarif-formatter
-        export PATH="$HOME/.local/bin:$PATH"
-
-        bandit -r app/ \
-          --format json \
-          --output bandit-output.json \
-          --severity-level low \
-          --confidence-level low
-
-        $HOME/.local/bin/bandit-sarif-formatter bandit-output.json > results.sarif
-
+        ruff check app/ --format=sarif > results.sarif
 
     - name: Upload SARIF to GitHub
       uses: github/codeql-action/upload-sarif@v3
