@@ -5,10 +5,15 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  security-events: write  # Required for Bandit upload-sarif
+
 env:
   AWS_REGION: us-east-2
   ECR_REPOSITORY: prod-cslh
   K8S_NAMESPACE: prod-cslh-namespace
+
 
 jobs:
   # -------------------------------
@@ -28,8 +33,8 @@ jobs:
       uses: PyCQA/bandit-action@v1
       with:
         targets: "app/"
-        severity: "high"
-        confidence: "high"
+        severity: "high" # Minimum severity to report
+        confidence: "high" # Minimum confidence to report
 
   # -------------------------------------------------
   # Step 2: Build, Scan, and Deploy to EKS
