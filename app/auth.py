@@ -2,15 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app.models import User # From models.py, import User
 from app import mongo # From __init__.py, import mongo
-from werkzeug.security import generate_password_hash # Flask's hash and verification library
+# from werkzeug.security import generate_password_hash # Flask's hash and verification library
 
 auth = Blueprint('auth', __name__) # Creates a Blueprint (component/module) called 'auth'
 
 # WARNING: Demo 1 - this is intentionally for testing
-password = "secret123" # this is only here to demo Ruff blocking this.
+#password = "secret123" # this is only here to demo Ruff blocking this.
 
-def connect():
-    print("this should not be in prod")  # debug in print, Ruff should also block this
+#def connect():
+#    print("this should not be in prod")  # debug in print, Ruff should also block this
 
 @auth.route('/login', methods=['GET', 'POST']) # When user goes to domain or localhost/login, and does POST/GET, do this
 def login():
