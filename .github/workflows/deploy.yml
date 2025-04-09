@@ -40,7 +40,7 @@ jobs:
           --severity-level low \
           --confidence-level low
     
-        python -m bandit_sarif_formatter bandit-output.json > results.sarif
+        ~/.local/bin/bandit-sarif-formatter bandit-output.json > results.sarif
 
 
     - name: Upload SARIF to GitHub
